@@ -104,5 +104,16 @@ Consulta el **Reporte de QA** en `docs/qa_report.md` para más información.
 
 ---
 
+## ✒️ Autoría y Desarrollo
+
+Este proyecto ha sido desarrollado por **MACUDev**.
+
+**Autor:** Ing. Melanio Cevallos
+
+---
+
 ## 📄 Licencia
-Este proyecto es propiedad del equipo de SentinelFeedback. 2026.
+
+Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+
+&copy; 2026 **MACUDev**. Todos los derechos reservados.

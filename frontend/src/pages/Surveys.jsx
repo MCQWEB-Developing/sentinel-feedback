@@ -3,11 +3,13 @@ import { TrendingUp, Users, MessageSquare, Plus, Copy, Trash2, Edit2 } from 'luc
 import { supabase } from '../lib/supabase';
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
+import ConfirmModal from '../components/ConfirmModal';
 
 export default function Surveys() {
     const [surveys, setSurveys] = useState([]);
     const [loading, setLoading] = useState(true);
     const [metrics, setMetrics] = useState({ totalResponses: 0, aiAnalysisRate: 0 });
+    const [deleteModal, setDeleteModal] = useState({ isOpen: false, surveyId: null });
     const navigate = useNavigate();
 
     // Stats for MVP view
@@ -111,7 +113,12 @@ export default function Surveys() {
     };
 
     const handleDelete = async (id) => {
-        if (!window.confirm('¿Está seguro de eliminar esta encuesta y TODAS sus respuestas (incluyendo el análisis de IA)? Esta acción es irreversible.')) return;
+        setDeleteModal({ isOpen: true, surveyId: id });
+    };
+
+    const confirmDelete = async () => {
+        const id = deleteModal.surveyId;
+        if (!id) return;
         try {
             const { error } = await supabase.from('surveys').delete().eq('id', id);
             if (error) throw error;
@@ -236,6 +243,17 @@ export default function Surveys() {
                     </table>
                 </div>
             </div>
+
+            <ConfirmModal
+                isOpen={deleteModal.isOpen}
+                onClose={() => setDeleteModal({ isOpen: false, surveyId: null })}
+                onConfirm={confirmDelete}
+                title="Eliminar Encuesta"
+                message="¿Está seguro de eliminar esta encuesta y TODAS sus respuestas (incluyendo el análisis de IA)? Esta acción es irreversible."
+                confirmText="Eliminar permanentemente"
+                cancelText="Mantener encuesta"
+                variant="danger"
+            />
         </div>
     );
 }

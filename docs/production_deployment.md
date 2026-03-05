@@ -60,6 +60,15 @@ Este paso conecta la base de datos con tu backend desplegado.
     -   `VITE_SUPABASE_URL`: URL de Supabase.
     -   `VITE_SUPABASE_ANON_KEY`: Clave *anon* de Supabase.
     -   `VITE_BACKEND_URL`: La URL de Render que copiaste en el paso 2 (ej. `https://tu-backend.onrender.com`).
+4.  **Configuración de Rutas (vercel.json):**
+    *   Asegúrate de que el archivo `frontend/vercel.json` esté presente para habilitar el enrutamiento client-side sin errores 404:
+    ```json
+    {
+      "rewrites": [
+        { "source": "/(.*)", "destination": "/index.html" }
+      ]
+    }
+    ```
 5.  **Deploy:** Vercel te dará la URL final de tu aplicación (ej. `https://sentinel-feedback.vercel.app`).
 
 ---
